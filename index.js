@@ -1,6 +1,6 @@
 
 const express = require('express');
-const port = 8000;
+
 const app = express();
 
 const expressLayouts = require('express-ejs-layouts');
@@ -40,12 +40,12 @@ app.use(session({
     cookie : {
         maxAge : (1000 * 60 * 100)
     },
-    store:MongoStore.create({
-        mongoUrl: 'mongodb://localhost:27017/habit',
-        autoRemove : 'disabled',
-    }, function(err){
-        console.log(err || 'connect-mongodb setup');
-    }),
+    // store:MongoStore.create({
+    //     mongoUrl: 'mongodb://localhost:27017/habit',
+    //     autoRemove : 'disabled',
+    // }, function(err){
+    //     console.log(err || 'connect-mongodb setup');
+    // }),
 }));
 
 app.use(passport.initialize());
@@ -55,10 +55,10 @@ app.use(passport.setAuthenticatedUser);
 
 app.use('/', require('./routes/index'));
 
-app.listen(port, function(err){
+app.listen(process.env.PORT || 8000, function(err){
     if(err){
         console.log("Error while connecting to server");
         return;
     }
-    console.log(`Server running on port ${port}.`);
+    console.log(`Server running on port 8000`);
 });
